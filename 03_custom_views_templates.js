@@ -2,7 +2,7 @@
 
 // In this file you can create your own custom view templates
 
-const custom_views = {};
+const custom_views = {
 
 // Custom view template for practice trials
 custom_views.keypress_rotation_practice = function(config) {
@@ -244,6 +244,7 @@ custom_views.keypress_rotation_main = function(config) {
     };
 
     return keypress_rotation_main_function;
+};
 };
 // A view template is a function that returns a view,
 // this functions gets some config (e.g. trial_data, name, etc.) information as input
