@@ -2,10 +2,10 @@
 
 // In this file you can create your own custom view templates
 
-const custom_views = {
+const custom_views = {};
 
 // Custom view template for practice trials
-custom_views.keypress_rotation_practice = function(config) {
+const custom_views.keypress_rotation_practice = function(config) {
     const keypress_rotation_practice_function = {
         name: config.name,
         title: magpieUtils.view.setter.title(config.title, ""),
@@ -127,10 +127,11 @@ custom_views.keypress_rotation_practice = function(config) {
 
 
 // main trials
-custom_views.keypress_rotation_main = function(config) {
+const custom_views.keypress_rotation_main = function(config) {
     const keypress_rotation_main_function = {
         name: config.name,
         title: magpieUtils.view.setter.title(config.title, ""),
+        // The render functions gets the magpie object as well as the current trial in view counter as input
         render: function(CT, magpie) {
             let startingTime;
             const question = magpieUtils.view.setter.question(
@@ -154,6 +155,7 @@ custom_views.keypress_rotation_main = function(config) {
 
             $("#main").html(viewTemplate);
 
+            //handles response
             const handleKeyPress = function(e) {
                 const keyPressed = String.fromCharCode(
                     e.which
@@ -163,6 +165,7 @@ custom_views.keypress_rotation_main = function(config) {
                     let correctness;
                     const RT = Date.now() - startingTime; // measure RT before anything else
 
+                    //checks correctness
                     if (
                         config.data[CT].expected ===
                             config[keyPressed]
@@ -213,8 +216,10 @@ custom_views.keypress_rotation_main = function(config) {
                         delete trial_data.canvas;
                     }
 
+                    //save trial data
                     magpie.trial_data.push(trial_data);
                     $("body").off("keydown", handleKeyPress);
+                    //continue with the next view
                     magpie.findNextView();
                 }
             };
@@ -245,7 +250,7 @@ custom_views.keypress_rotation_main = function(config) {
 
     return keypress_rotation_main_function;
 };
-};
+
 // A view template is a function that returns a view,
 // this functions gets some config (e.g. trial_data, name, etc.) information as input
 // A view is an object, that has a name, CT (the counter of how many times this view occurred in the experiment),
